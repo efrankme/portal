@@ -1,0 +1,9 @@
+form {
+    box-shadow: 0 0 5px gray;
+    padding: 20px;
+}
+
+.inicio-sesion, .registro {
+    margin-top: 20%;
+    margin-bottom: 10%;
+}
