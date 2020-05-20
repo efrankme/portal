@@ -1,8 +1,7 @@
 $(function () {
-
-  $('#login').submit(function(e){
+  $("#login").submit(function (e) {
     e.preventDefault();
-    $('#iniciar_sesion').attr("disabled", "disabled");
+    $("#iniciar_sesion").attr("disabled", "disabled");
 
     // $('form').validate({
     // reglas aquí
@@ -11,16 +10,16 @@ $(function () {
     let usuario = $("#usuario").val();
     let clave = $("#clave").val();
 
-    $.post('iniciar_sesion.php',{ usuario: usuario, clave: clave }, function(sesion){
-      if(sesion == true) {
+    $.post("iniciar_sesion.php", { usuario: usuario, clave: clave }, function (
+      sesion
+    ) {
+      if (sesion == true) {
         location = "admin.php";
       } else {
         alertify.error("Algo pasó, intente más tarde");
       }
-    })
-
+    });
   });
-
 
   $("#registrar").click(function () {
     $(this).attr("disabled", "disabled");
@@ -55,19 +54,32 @@ $(function () {
         direccion: direccion,
         ciudad: ciudad,
         estado: estado,
-        codigopostal: codigopostal
+        codigopostal: codigopostal,
       },
-      function(registro) {
-        if(registro == true){
-          alertify.success('Usuario registrado con éxito');
-          setTimeout(function(){
-            location = 'index.php';
+      function (registro) {
+        if (registro == true) {
+          alertify.success("Usuario registrado con éxito");
+          setTimeout(function () {
+            location = "index.php";
           }, 3000);
         } else {
-          alertify.error('Algo pasó, intente más tarde');
+          alertify.error("Algo pasó, intente más tarde");
         }
-      });
+      }
+    );
   });
 
+  // Toggle sidebar 
+  $("#menu").on("click", function (e) {
+    e.preventDefault();
+    $("body").toggleClass("sb-sidenav-toggled");
+  });
 
+  // Agregar class active links
+  var path = window.location.href;
+  $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
+    if (this.href === path) {
+      $(this).addClass("active");
+    }
+  });
 });
