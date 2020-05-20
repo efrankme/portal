@@ -1,4 +1,5 @@
 $(function () {
+  // Eventos del index y registro
   $("#login").submit(function (e) {
     e.preventDefault();
     $("#iniciar_sesion").attr("disabled", "disabled");
@@ -69,17 +70,29 @@ $(function () {
     );
   });
 
-  // Toggle sidebar 
+  // Eventos template
+  // Toggle sidebar
   $("#menu").on("click", function (e) {
     e.preventDefault();
     $("body").toggleClass("sb-sidenav-toggled");
   });
 
   // Agregar class active links
-  var path = window.location.href;
+  var ruta = window.location.href;
   $("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
-    if (this.href === path) {
+    if (this.href === ruta) {
       $(this).addClass("active");
     }
   });
+
+
+  // Eventos admin.php
+
+  // cargar usuarios
+  function cargarUsuarios() {
+    $(".table-responsive").load("tabla_usuarios.php");
+  }
+
+  cargarUsuarios();
+
 });

@@ -48,11 +48,24 @@ class Usuarios extends Mysql {
 			
   }
 
+  function consultarTodos(){
+    $this->query = "select id, usuario,email,nombre,apellido,fechanac,telefono,ciudad from usuarios";
+    $this->ejecutarResultados();
+    return $this->rows;
+  }
 
-  function consultar(){}
+  function consultar(){
+
+  }
 
   function editar(){}
 
   function borrar(){}
 
+} //endclass
+
+
+function formatFecha($fecha){
+  $fecha = date_create($fecha);
+  return date_format($fecha,'d-m-Y');
 }

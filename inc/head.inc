@@ -13,7 +13,7 @@
 </head>
 <body class="sb-nav-fixed">
 
-<?php if($_SERVER['SCRIPT_NAME'] != '/portal/index.php') { ?> 
+<?php if($_SERVER['SCRIPT_NAME'] != '/portal/index.php' && $_SERVER['SCRIPT_NAME'] != '/portal/registro.php') { ?> 
 
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
     <a class="navbar-brand" href="index.html">Portal Usuarios</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="menu" href="#"><i class="fas fa-bars"></i></button
