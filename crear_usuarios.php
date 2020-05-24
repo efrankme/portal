@@ -2,6 +2,10 @@
 
 require('lib/usuarios.php');
 
+echo "<pre>";
+var_dump($_POST);
+echo "</pre>";
+
 if($_POST){
   $data_usuario = [
     'usuario' => $_POST['usuario'],

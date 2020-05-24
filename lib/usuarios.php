@@ -1,9 +1,9 @@
-<?php 
+<?php
 
-require("mysql.php");
+require "mysql.php";
 
-class Usuarios extends Mysql {
-
+class Usuarios extends Mysql
+{
   public $usuario;
   public $email;
   public $nombre;
@@ -15,57 +15,62 @@ class Usuarios extends Mysql {
   public $ciudad;
   public $estado;
   public $codigopostal;
-  protected $id;
-  private $clave;
+  protected $_id;
+  private $__clave;
 
-  function crear($data_usuario=[]){
-    foreach($data_usuario as $campo => $valor){
+  public function crear($data_usuario = [])
+  {
+    foreach ($data_usuario as $campo => $valor) {
       $$campo = $this->sanitizar($valor);
     }
 
-    $clave = password_hash($clave,PASSWORD_DEFAULT);
+    $clave = password_hash($clave, PASSWORD_DEFAULT);
 
     $this->query = "insert into usuarios values('','$usuario','$clave','$email','$nombre','$apellido','$cedula','$fechanac','$telefono','$direccion','$ciudad','$estado','$codigopostal')";
     $this->ejecutar();
   }
 
-
-  function iniciarSesion($usuario,$clave){
+  public function iniciarSesion($usuario, $clave)
+  {
     $this->query = "select * from usuarios where usuario ='$usuario'";
-		$this->ejecutarResult();
-		if($this->numRows() > 0) {
-      foreach ($this->rows[0] as $propiedad=>$valor){
-	      $this->$propiedad = $valor;
-	    }
-      if(password_verify($clave,$this->clave)) {
-			  return true;
-		  } else {
-			  return false; // datos incorrectos
-		  }
+    $this->ejecutarResult();
+    if ($this->numRows() > 0) {
+      foreach ($this->rows[0] as $propiedad => $valor) {
+        $this->$propiedad = $valor;
+      }
+      if (password_verify($clave, $this->clave)) {
+        return true;
+      } else {
+        return false; // datos incorrectos
+      }
     } else {
       return false; // datos incorrectos
     }
-			
   }
 
-  function consultarTodos(){
-    $this->query = "select id, usuario,email,nombre,apellido,fechanac,telefono,ciudad from usuarios";
+  public function consultarTodos()
+  {
+    $this->query =
+      "select id, usuario,email,nombre,apellido,fechanac,telefono,ciudad from usuarios";
     $this->ejecutarResultados();
     return $this->rows;
   }
 
-  function consultar(){
-
+  public function consultar()
+  {
   }
 
-  function editar(){}
+  public function editar()
+  {
+  }
 
-  function borrar(){}
-
+  public function borrar()
+  {
+  }
 } //endclass
 
-
-function formatFecha($fecha){
+function formatFecha($fecha)
+{
   $fecha = date_create($fecha);
-  return date_format($fecha,'d-m-Y');
+  return date_format($fecha, 'd-m-Y');
 }
