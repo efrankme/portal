@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'inc/head.inc';
+require 'inc/head.inc';
 
 if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 	header('location: index.php');
@@ -31,6 +31,7 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 			</div>
 		</nav>
 	</div>
+	
 	<div id="layoutSidenav_content">
 		<main>
 				<div class="container-fluid">
@@ -45,7 +46,29 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 								</div>
 								<div class="card-body">
 										<div class="table-responsive">
-
+											<table class="table table-bordered" id="datatable" width="100%">
+												<thead>
+													<tr>
+														<th>Usuario</th>
+														<th>Email</th>
+														<th>Nombre</th>
+														<th>Fecha Nac</th>
+														<th>Teléfono</th>
+														<th>Ciudad</th>
+													</tr>
+												</thead>
+												<tbody></tbody>
+												<tfoot>
+													<tr>
+														<th>Usuario</th>
+														<th>Email</th>
+														<th>Nombre</th>
+														<th>Fecha Nac</th>
+														<th>Teléfono</th>
+														<th>Ciudad</th>
+													</tr>
+												</tfoot>
+											</table>
 										</div>
 								</div>
 						</div>

@@ -2,7 +2,6 @@ $(function () {
 	// Eventos del index y registro
 	$("#login").submit(function (e) {
 		e.preventDefault();
-		$("#iniciar_sesion").attr("disabled", "disabled");
 
 		// $('form').validate({
 		// reglas aquí
@@ -17,7 +16,10 @@ $(function () {
 			if (sesion == true) {
 				location = "admin.php";
 			} else {
-				alertify.error("Algo pasó, intente más tarde");
+				$("#msg")
+					.addClass("alert alert-danger")
+					.text("Algo pasó, intente más tarde")
+					.fadeIn("slow", ocultaMsg);
 			}
 		});
 	});
@@ -40,7 +42,7 @@ $(function () {
 		});
 	});
 
-	// Eventos template
+	//// Eventos template ////
 	// Toggle sidebar
 	$("#menu").on("click", function (e) {
 		e.preventDefault();
@@ -55,12 +57,52 @@ $(function () {
 		}
 	});
 
-	// Eventos admin.php
-
-	// cargar usuarios
-	function cargarUsuarios() {
-		$(".table-responsive").load("tabla_usuarios.php");
+	// Ocultar mensajes
+	function ocultaMsg() {
+		$("#msg")
+			.delay(1000)
+			.fadeOut("normal", function () {
+				$(this).remove();
+			});
 	}
 
-	cargarUsuarios();
+	// Agrega fondo al login y registro
+	var url = location.pathname;
+	if (url == "/portal/index.php" || url == "/portal/registro.php") {
+		$("body").addClass("fondo");
+	}
+
+	//// Eventos admin.php ////
+
+	// $("#layoutSidenav_content")
+	// 	.append('<button id="carga">Carga</button>')
+	// 	.click(recarga);
+
+	// cargar usuarios
+
+	var tabla = $("#datatable").DataTable({
+		ajax: {
+			url: "tabla_usuarios.php",
+			dataSrc: "",
+		},
+		columns: [
+			{ data: "usuario" },
+			{ data: "email" },
+			{ data: "nombre" },
+			{ data: "fechanac" },
+			{ data: "telefono" },
+			{ data: "ciudad" },
+		],
+	});
+
+  console.log(tabla.data());
+  
+  
+	//cerrar sesión
+	$("#salir").click(function (e) {
+		e.preventDefault();
+		$.post("cerrar.php").done(function () {
+			location = "index.php";
+		});
+	});
 });

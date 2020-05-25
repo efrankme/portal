@@ -67,10 +67,5 @@ class Usuarios extends Mysql
   public function borrar()
   {
   }
-} //endclass
-
-function formatFecha($fecha)
-{
-  $fecha = date_create($fecha);
-  return date_format($fecha, 'd-m-Y');
 }
+
