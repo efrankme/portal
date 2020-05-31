@@ -8,7 +8,6 @@
 		<link rel="stylesheet" href="css/fontawesome.css" />
 		<link rel="stylesheet" href="css/solid.css" />
 		<link rel="stylesheet" href="css/style.css" />
-		<!-- <link rel="stylesheet" href="css/dataTables.bootstrap4.css"> -->
 		<link rel="stylesheet" href="css/datatables.css">
 	</head>
 	<body class="sb-nav-fixed">
@@ -34,5 +33,4 @@
 		</nav>
 
 		<?php } ?>
-	</body>
-</html>
+

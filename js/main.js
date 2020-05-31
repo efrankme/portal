@@ -74,28 +74,21 @@ $(function () {
 
 	//// Eventos admin.php ////
 
-	// $("#layoutSidenav_content")
-	// 	.append('<button id="carga">Carga</button>')
-	// 	.click(recarga);
+  function cargaUsuarios(){
+    $("#users").load("tabla_usuarios.php");
+  }
 
-	// cargar usuarios
+	cargaUsuarios();
+	
 
-	var tabla = $("#datatable").DataTable({
-		ajax: {
-			url: "tabla_usuarios.php",
-			dataSrc: "",
-		},
-		columns: [
-			{ data: "usuario" },
-			{ data: "email" },
-			{ data: "nombre" },
-			{ data: "fechanac" },
-			{ data: "telefono" },
-			{ data: "ciudad" },
-		],
+	// ver usuario
+	$("#users").on("click", "#datatable .btn-ver", function () {
+		var id = $(this).parents().eq(1).attr('user-id');
+		$.post('ver_usuario.php',{ id: id })
+		.done(function(data){
+			$("#ver-modal .modal-body").html(data);
+		})
 	});
-
-  console.log(tabla.data());
   
   
 	//cerrar sesión

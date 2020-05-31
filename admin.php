@@ -45,30 +45,8 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 										<i class="fas fa-table mr-1"></i>Usuarios
 								</div>
 								<div class="card-body">
-										<div class="table-responsive">
-											<table class="table table-bordered" id="datatable" width="100%">
-												<thead>
-													<tr>
-														<th>Usuario</th>
-														<th>Email</th>
-														<th>Nombre</th>
-														<th>Fecha Nac</th>
-														<th>Teléfono</th>
-														<th>Ciudad</th>
-													</tr>
-												</thead>
-												<tbody></tbody>
-												<tfoot>
-													<tr>
-														<th>Usuario</th>
-														<th>Email</th>
-														<th>Nombre</th>
-														<th>Fecha Nac</th>
-														<th>Teléfono</th>
-														<th>Ciudad</th>
-													</tr>
-												</tfoot>
-											</table>
+										<div id="users" class="table-responsive">
+											
 										</div>
 								</div>
 						</div>
@@ -90,5 +68,25 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 		</footer>
 	</div>
 </div>
+
+
+<!-- Ver Usuario Modal -->
+<div id="ver-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Ver Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body"></div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 <?php include 'inc/foot.inc'; ?>

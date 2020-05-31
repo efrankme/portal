@@ -56,8 +56,12 @@ class Usuarios extends Mysql
     return $this->rows;
   }
 
-  public function consultar()
-  {
+  public function consultar($id = 0){
+    $this->query = "select * from usuarios where id = $id";
+    $this->ejecutarResult();
+    foreach($this->rows[0] as $campo => $valor){
+      $this->$campo = $valor;
+    }
   }
 
   public function editar()
