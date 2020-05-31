@@ -80,15 +80,72 @@ $(function () {
 
 	cargaUsuarios();
 	
+	var id;
 
 	// ver usuario
-	$("#users").on("click", "#datatable .btn-ver", function () {
-		var id = $(this).parents().eq(1).attr('user-id');
+	$("#users").on("click", ".btn-ver", function () {
+		id = $(this).parents().eq(1).attr('user-id');
 		$.post('ver_usuario.php',{ id: id })
 		.done(function(data){
 			$("#ver-modal .modal-body").html(data);
 		})
 	});
+
+
+	//editar usuario
+	$('#users').on('click','.btn-editar',function(){
+		id = $(this).parent().parent().attr('user-id');
+		$.post('editar.php',{ id : id, consul : 'true'})
+			.done(function(user){
+				user = $.parseJSON(user)
+				$("#editar-modal .modal-body").append(`
+					<form id="edicion" method="post">           
+              <div class="form-group">
+                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" disabled value="${user.usuario}">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${user.email}">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="${user.nombre}">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" value="${user.apellido}">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="cedula" name="cedula" placeholder="Cedula" value="${user.cedula}">
+              </div>
+              <div class="form-group">
+                <input type="date" id="fechanac" name="fechanac" class="form-control" value="${user.fechanac}">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="${user.telefono}">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" value="${user.direccion}">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" value="${user.ciudad}">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado" value="${user.estado}">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="codigopostal" name="codigopostal" placeholder="Código postal" value="${user.codigopostal}">
+              </div>
+						</form>`);
+				$('#editar').on('click',function(){
+					//Validación
+					var data = $('#edicion').serialize();
+					$.post('editar.php',data)
+						.done(function(resp){
+							if (resp){
+								alert('ok');
+							}
+						});
+				})
+			})
+	})
   
   
 	//cerrar sesión

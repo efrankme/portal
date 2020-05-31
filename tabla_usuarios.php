@@ -32,7 +32,7 @@ $usuarios = $users->consultarTodos();
         <button class="btn btn-primary btn-ver" data-toggle="modal" data-target="#ver-modal">
           <i class="fa fa-eye"></i>
         </button>
-        <button class="btn btn-warning btn-editar" data-toggle="modal" data-target="#ver-modal">
+        <button class="btn btn-warning btn-editar" data-toggle="modal" data-target="#editar-modal">
           <i class="fa fa-edit"></i>
         </button>
         <button class="btn btn-danger btn-borrar" data-toggle="modal" data-target="#ver-modal">
