@@ -3,7 +3,7 @@
   <div class="container container-md registro">
     <div class="row justify-content-md-center">
       
-      <div class="col-md-auto">
+      <div class="col-md-6">
 
         <div class="card">
           <div class="card-header">

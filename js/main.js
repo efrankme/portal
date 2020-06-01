@@ -1,11 +1,8 @@
 $(function () {
+
 	// Eventos del index y registro
 	$("#login").submit(function (e) {
 		e.preventDefault();
-
-		// $('form').validate({
-		// reglas aquí
-		//});
 
 		let usuario = $("#usuario").val();
 		let clave = $("#clave").val();
@@ -16,10 +13,7 @@ $(function () {
 			if (sesion == true) {
 				location = "admin.php";
 			} else {
-				$("#msg")
-					.addClass("alert alert-danger")
-					.text("Algo pasó, intente más tarde")
-					.fadeIn("slow", ocultaMsg);
+				popup('Algo pasó, intente luego','danger');
 			}
 		});
 	});
@@ -57,20 +51,25 @@ $(function () {
 		}
 	});
 
-	// Ocultar mensajes
-	function ocultaMsg() {
+	// Mostrar mensajes
+	function popup(msj,tipo) {
 		$("#msg")
-			.delay(1000)
-			.fadeOut("normal", function () {
-				$(this).remove();
-			});
+			.addClass("alert alert-"+tipo)
+			.text(msj)
+			.fadeIn("slow")
+			.delay(3000)
+			.fadeOut("normal");
 	}
+
+
 
 	// Agrega fondo al login y registro
 	var url = location.pathname;
 	if (url == "/portal/index.php" || url == "/portal/registro.php") {
 		$("body").addClass("fondo");
 	}
+
+
 
 	//// Eventos admin.php ////
 
@@ -85,7 +84,7 @@ $(function () {
 	// ver usuario
 	$("#users").on("click", ".btn-ver", function () {
 		id = $(this).parents().eq(1).attr('user-id');
-		$.post('ver_usuario.php',{ id: id })
+		$.post('ver.php',{ id: id })
 		.done(function(data){
 			$("#ver-modal .modal-body").html(data);
 		})
@@ -97,53 +96,54 @@ $(function () {
 		id = $(this).parent().parent().attr('user-id');
 		$.post('editar.php',{ id : id, consul : 'true'})
 			.done(function(user){
-				user = $.parseJSON(user)
-				$("#editar-modal .modal-body").append(`
-					<form id="edicion" method="post">           
-              <div class="form-group">
-                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" disabled value="${user.usuario}">
-              </div>
-              <div class="form-group">
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email" value="${user.email}">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Nombre" value="${user.nombre}">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="apellido" name="apellido" placeholder="Apellido" value="${user.apellido}">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="cedula" name="cedula" placeholder="Cedula" value="${user.cedula}">
-              </div>
-              <div class="form-group">
-                <input type="date" id="fechanac" name="fechanac" class="form-control" value="${user.fechanac}">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="telefono" name="telefono" placeholder="Teléfono" value="${user.telefono}">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="direccion" name="direccion" placeholder="Dirección" value="${user.direccion}">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" value="${user.ciudad}">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="estado" name="estado" placeholder="Estado" value="${user.estado}">
-              </div>
-              <div class="form-group">
-                <input type="text" class="form-control" id="codigopostal" name="codigopostal" placeholder="Código postal" value="${user.codigopostal}">
-              </div>
-						</form>`);
+				user = $.parseJSON(user);
+				// llenamos form con datos
+				$('#id').val(id);
+				$('#usuario').val(user.usuario);
+				$('#nombre').val(user.nombre);
+				$('#apellido').val(user.apellido);
+				$('#email').val(user.email);
+				$('#cedula').val(user.cedula);
+				$('#fechanac').val(user.fechanac);
+				$('#telefono').val(user.telefono);
+				$('#direccion').val(user.direccion);
+				$('#ciudad').val(user.ciudad);
+				$('#estado').val(user.estado);
+				$('#codigopostal').val(user.codigopostal);
+
 				$('#editar').on('click',function(){
 					//Validación
-					var data = $('#edicion').serialize();
-					$.post('editar.php',data)
-						.done(function(resp){
-							if (resp){
-								alert('ok');
+					var form = $('#form-editar');
+					form.validate({
+						rules : {
+							nombre : "required",
+							apellido : "required",
+							email : {
+								required : true,
+								email : true
 							}
-						});
-				})
+						},
+						messages : {
+							nombre : "El nombre es requerido",
+							apellido : "El apellido es requerido",
+							email : {
+								required: "E-mail es requerido",
+								email: "Debe ser un e-mail válido"
+							}
+						}
+					});
+					if (form.valid()) {
+						var data = $('#form-editar').serialize();
+						$.post('editar.php',data)
+							.done(function(resp){
+								if (resp){
+									$("#editar-modal").modal("hide");
+									popup('Usuario se editó correctamente','success');
+									cargaUsuarios();
+								}
+							});
+					}
+				});
 			})
 	})
   

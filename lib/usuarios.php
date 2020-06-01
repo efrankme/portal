@@ -56,6 +56,7 @@ class Usuarios extends Mysql
 		return $this->rows;
 	}
 
+
 	public function consultar($id = 0)
 	{
 		$this->query = "select * from usuarios where id = $id";
@@ -65,9 +66,26 @@ class Usuarios extends Mysql
 		}
 	}
 
-	public function editar()
-	{
+
+	public function editar($data_usuario = []) {
+		foreach ($data_usuario as $campo => $valor) {
+			$$campo = $this->sanitizar($valor);
+		}
+		$this->query = "update usuarios set 
+																				nombre = '$nombre',
+																				apellido = '$apellido',
+																				cedula = '$cedula',
+																				email = '$email',
+																				telefono = '$telefono',
+																				fechanac = '$fechanac',
+																				direccion = '$direccion',
+																				ciudad = '$ciudad',
+																				estado = '$estado',
+																				codigopostal = '$codigopostal'
+																				where id = $id ";
+		$this->ejecutar();
 	}
+
 
 	public function borrar()
 	{

@@ -226,12 +226,26 @@
 	height: 100vh;
 }
 
-.inicio-sesion,
+.inicio-sesion {
+	margin-top: 10%;
+}
+
 .registro {
-	margin-top: 15%;
-	margin-bottom: 10%;
+	margin-top: 5%;
 }
 
 #msg {
 	display: none;
 }
+
+label.error {
+  color: tomato;
+}
+
+
+input.error {
+  /* outline: tomato; */
+  border: 1px solid tomato;
+}
+
+
