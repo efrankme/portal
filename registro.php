@@ -21,7 +21,7 @@
                 <input type="password" class="form-control" id="clave" name="clave" placeholder="Contraseña">
               </div>
               <div class="form-group">
-                <input type="password" class="form-control" id="clave2" placeholder="Confirmar Contraseña">
+                <input type="password" class="form-control" id="clave2" name="clave2" placeholder="Confirmar Contraseña">
               </div>
               <div class="form-group">
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email">

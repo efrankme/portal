@@ -8,6 +8,7 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 }
 ?>
 
+
 <div id="layoutSidenav">
 	<div id="layoutSidenav_nav">
 		<nav class="sb-sidenav sb-sidenav-dark">
@@ -146,10 +147,32 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 								<label for="codigopostal">Código Postal</label>
                 <input type="text" class="form-control" id="codigopostal" name="codigopostal" placeholder="Código postal">
               </div>
-						</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary" id="editar">Editar</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+</div>
+
+
+<!-- Borrar Usuario Modal -->
+<div id="borrar-modal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Borrar Usuario</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
 			</div>
       <div class="modal-footer">
-				<button type="button" class="btn btn-primary" id="editar">Editar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" id="borrar">Eliminar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>

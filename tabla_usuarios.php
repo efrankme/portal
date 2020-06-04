@@ -35,7 +35,7 @@ $usuarios = $users->consultarTodos();
         <button class="btn btn-info btn-editar" data-toggle="modal" data-target="#editar-modal">
           <i class="fa fa-edit"></i>
         </button>
-        <button class="btn btn-danger btn-borrar" data-toggle="modal" data-target="#ver-modal">
+        <button class="btn btn-danger btn-borrar" data-toggle="modal" data-target="#borrar-modal">
           <i class="fa fa-eraser"></i>
         </button>
       </td>
