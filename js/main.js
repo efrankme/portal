@@ -116,7 +116,7 @@ $(function () {
 			.addClass("alert alert-" + tipo)
 			.text(msj)
 			.fadeIn("slow")
-			.delay(3000)
+			.delay(2500)
 			.fadeOut("normal");
 	}
 
@@ -165,7 +165,7 @@ $(function () {
 
 			$("#editar").on("click", function () {
 				//Validación
-				var form = $("#registro");
+				var form = $("#form-editar");
 				form.validate({
 					rules: {
 						email: {
@@ -211,7 +211,7 @@ $(function () {
 					},
 				});
 				if (form.valid()) {
-					var data = $("#form-editar").serialize();
+					var data = form.serialize();
 					$.post("editar.php", data).done(function (resp) {
 						if (resp) {
 							$("#editar-modal").modal("hide");
@@ -231,9 +231,27 @@ $(function () {
 			$("#borrar-modal .modal-body").html(data);
 		});
 
-		$("#borrar").click(function(){
-			
-		})
+		$("#borrar").click(function () {
+			var html = $("#borrar-modal .modal-body").html();
+			$("#borrar-modal .modal-body").html(
+				html +
+					`<div class="text-center">
+					<p>Esta seguro que desea eliminar?</p>
+					<button class="btn btn-primary" id="modal-btn-si">Si</button>
+        <button class="btn btn-warning" id="modal-btn-no">No</button></div>`
+			);
+
+			$("#borrar-modal").on("click", "#modal-btn-si",function(){
+				$.get("borrar.php",{ id: id }).
+				done(function(data){
+					if(data) {
+						$("#borrar-modal").modal("hide");
+						popup("Usuario se eliminó del sitio", "danger");
+						cargaUsuarios();
+					}
+				})
+			})
+		});
 	});
 
 	//cerrar sesión

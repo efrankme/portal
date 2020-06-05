@@ -1,14 +1,20 @@
 <?php
 
-if ($_POST) {
-	require 'lib/usuarios.php';
-  require 'lib/funciones.php';
-  
-  $id = $_POST['id'];
+require 'lib/usuarios.php';
+require 'lib/funciones.php';
+$usuario = new Usuarios();
 
-	$usuario = new Usuarios();
+if ($_GET){
+  $id = $_GET['id'];
+  $usuario->borrar($id);
+  echo true;
+  die;
+}
+
+if ($_POST) {  
+  $id = $_POST['id'];
   $usuario->consultar($id);
-} ?>
+ ?>
 
 
 <table class="table table-striped table-bordered">
@@ -35,3 +41,7 @@ if ($_POST) {
     </tr>
   </tbody> 
 </table>
+
+<?php 
+}
+?>

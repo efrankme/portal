@@ -172,7 +172,7 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 
 			</div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal" id="borrar">Eliminar</button>
+        <button type="button" class="btn btn-primary" id="borrar">Eliminar</button>
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>

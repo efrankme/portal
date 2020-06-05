@@ -87,7 +87,9 @@ class Usuarios extends Mysql
 	}
 
 
-	public function borrar()
+	public function borrar($id=0)
 	{
+		$this->query = "update usuarios set erased = 1 where id = $id";
+		$this->ejecutar();
 	}
 }
