@@ -241,16 +241,15 @@ $(function () {
         <button class="btn btn-warning" id="modal-btn-no">No</button></div>`
 			);
 
-			$("#borrar-modal").on("click", "#modal-btn-si",function(){
-				$.get("borrar.php",{ id: id }).
-				done(function(data){
-					if(data) {
+			$("#borrar-modal").on("click", "#modal-btn-si", function () {
+				$.get("borrar.php", { id: id }).done(function (data) {
+					if (data) {
 						$("#borrar-modal").modal("hide");
 						popup("Usuario se eliminó del sitio", "danger");
 						cargaUsuarios();
 					}
-				})
-			})
+				});
+			});
 		});
 	});
 
@@ -261,4 +260,29 @@ $(function () {
 			location = "index.php";
 		});
 	});
+
+
+	// Chequear inactividad
+
+	var idleTimer = null;
+
+	$(document).on("click scroll", function () {
+
+		clearTimeout(idleTimer);
+
+		// Reactivar ult acceso
+		$.post("sesion.php");
+
+		idleTimer = setTimeout(function () {
+			// Inactividad detectada
+			$.post("sesion.php",{sesion : 'off'},  function (resp) {
+				if (resp) {
+					console.log("Inactividad detectada");
+					location = "index.php";
+				}
+			});
+		}, 600000);
+	});
+
+	$('body').trigger('click');
 });

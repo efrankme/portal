@@ -6,31 +6,20 @@ function formatFecha($fecha)
 	return date_format($fecha, 'd-m-Y');
 }
 
+function verificaInactividad()
+{
+	// calculamos el tiempo transcurrido
+	$ult_acceso = $_SESSION["ultimoAcceso"];
+	$ahora = date("Y-n-j H:i:s");
+	$tiempo_transcurrido = (strtotime($ahora) - strtotime($ult_acceso));
 
-function sesion() {
-	//Comprobamos si esta definida la sesión 'tiempo'.
-	if(isset($_SESSION['tiempo']) ) {
-
-    //Tiempo en segundos para dar vida a la sesión.
-    $inactivo = 1200;//20min en este caso.
-
-    //Calculamos tiempo de vida inactivo.
-    $vida_session = time() - $_SESSION['tiempo'];
-
-        //Compraración para redirigir página, si la vida de sesión sea mayor a el tiempo insertado en inactivo.
-        if($vida_session > $inactivo)
-        {
-            //Removemos sesión.
-            session_unset();
-            //Destruimos sesión.
-            session_destroy();              
-            //Redirigimos pagina.
-            header("Location: index.php");
-
-            exit();
-        }
-} else {
-    //Activamos sesion tiempo.
-    $_SESSION['tiempo'] = time();
-}
+	//comparamos el tiempo transcurrido
+	if ($tiempo_transcurrido >= 6000) {
+		//si pasaron 10 minutos o más
+		session_destroy(); // destruyo la sesión
+		header("Location: index.php"); //envío al usuario a la pag. de autenticación
+	} else {
+		//sino, actualizo la fecha de la sesión
+		$_SESSION["ultimoAcceso"] = $ahora;
+	}
 }
