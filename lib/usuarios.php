@@ -26,7 +26,7 @@ class Usuarios extends Mysql
 
 		$clave = password_hash($clave, PASSWORD_DEFAULT);
 
-		$this->query = "insert into usuarios values('','$usuario','$clave','$email','$nombre','$apellido','$cedula','$fechanac','$telefono','$direccion','$ciudad','$estado','$codigopostal')";
+		$this->query = "insert into usuarios values('','$usuario','$clave','$email','$nombre','$apellido','$cedula','$fechanac','$telefono','$direccion','$ciudad','$estado','$codigopostal',0)";
 		$this->ejecutar();
 	}
 

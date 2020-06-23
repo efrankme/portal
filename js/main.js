@@ -30,7 +30,7 @@ $(function () {
 					rangelength: [5, 20],
 				},
 				clave: {
-					minlength: 8,
+					minlength: 4,
 				},
 				clave2: {
 					required: true,
@@ -54,7 +54,7 @@ $(function () {
 				},
 				fechanac: {
 					required: true,
-					max: "2005-01-01",
+					// max: "2005-01-01",
 				},
 				telefono: {
 					required: true,
@@ -82,14 +82,14 @@ $(function () {
 		if (form.valid()) {
 			var datos = $("#registro").serialize();
 
-			$.post("crear_usuarios.php", datos).done(function (registro) {
+			$.post("crear.php", datos).done(function (registro) {
 				if (registro) {
-					alertify.success("Usuario registrado con éxito");
+					popup("Usuario registrado con éxito", "success");
 					setTimeout(function () {
 						location = "index.php";
-					}, 3000);
+					}, 30000);
 				} else {
-					alertify.error("Algo pasó, intente más tarde");
+					popup("Algo pasó, intente más tarde", "danger");
 				}
 			});
 		}
@@ -261,13 +261,11 @@ $(function () {
 		});
 	});
 
-
 	// Chequear inactividad
 
 	var idleTimer = null;
 
 	$(document).on("click scroll", function () {
-
 		clearTimeout(idleTimer);
 
 		// Reactivar ult acceso
@@ -275,7 +273,7 @@ $(function () {
 
 		idleTimer = setTimeout(function () {
 			// Inactividad detectada
-			$.post("sesion.php",{sesion : 'off'},  function (resp) {
+			$.post("sesion.php", { sesion: "off" }, function (resp) {
 				if (resp) {
 					console.log("Inactividad detectada");
 					location = "index.php";
@@ -284,5 +282,5 @@ $(function () {
 		}, 600000);
 	});
 
-	$('body').trigger('click');
+	$("body").trigger("click");
 });

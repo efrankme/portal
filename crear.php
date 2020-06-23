@@ -2,10 +2,6 @@
 
 require('lib/usuarios.php');
 
-echo "<pre>";
-var_dump($_POST);
-echo "</pre>";
-
 if($_POST){
   extract($_POST,EXTR_OVERWRITE);
   $data_usuario = [
@@ -25,7 +21,6 @@ if($_POST){
     // crea objeto usuario
     $usuario = new Usuarios();
     $usuario->crear($data_usuario);
-
     echo true;
 }
 

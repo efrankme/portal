@@ -12,7 +12,6 @@ function verificaInactividad()
 	$ult_acceso = $_SESSION["ultimoAcceso"];
 	$ahora = date("Y-n-j H:i:s");
 	$tiempo_transcurrido = (strtotime($ahora) - strtotime($ult_acceso));
-
 	//comparamos el tiempo transcurrido
 	if ($tiempo_transcurrido >= 6000) {
 		//si pasaron 10 minutos o más
