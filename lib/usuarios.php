@@ -67,6 +67,16 @@ class Usuarios extends Mysql
 	}
 
 
+	public function consultarPerfil($usuario)
+	{
+		$this->query = "select * from usuarios where usuario = '$usuario'";
+		$this->ejecutarResult();
+		foreach ($this->rows[0] as $campo => $valor) {
+			$this->$campo = $valor;
+		}
+	}
+
+
 	public function editar($data_usuario = []) {
 		foreach ($data_usuario as $campo => $valor) {
 			$$campo = $this->sanitizar($valor);

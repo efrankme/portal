@@ -122,10 +122,15 @@ $(function () {
 
 	// Agrega fondo al login y registro
 	var url = location.pathname;
-	if (url == "/portal/index.php" || url == "/portal/registro.php") {
+	if (
+		url == "/portal/" ||
+		url == "/portal/index.php" ||
+		url == "/portal/registro.php"
+	) {
 		$("body").addClass("fondo");
 	}
 
+	///////////////////////////
 	//// Eventos admin.php ////
 
 	function cargaUsuarios() {
@@ -261,6 +266,29 @@ $(function () {
 		});
 	});
 
+	///////////////////
+	// Eventos perfil//
+
+	if (url == "/portal/perfil.php") {
+		let usuario = $("#usuario").val();
+		$.get("datos_usuario.php", { usuario: usuario }, function (user) {
+			if (user) {
+				user = $.parseJSON(user);
+				// llenamos form con datos
+				$("#nombre").val(user.nombre);
+				$("#apellido").val(user.apellido);
+				$("#email").val(user.email);
+				$("#cedula").val(user.cedula);
+				$("#fechanac").val(user.fechanac);
+				$("#telefono").val(user.telefono);
+				$("#direccion").val(user.direccion);
+				$("#ciudad").val(user.ciudad);
+				$("#estado").val(user.estado);
+				$("#codigopostal").val(user.codigopostal);
+			}
+		});
+	}
+
 	// Chequear inactividad
 
 	var idleTimer = null;
@@ -282,5 +310,6 @@ $(function () {
 		}, 600000);
 	});
 
+	// Iniciar actividad
 	$("body").trigger("click");
 });

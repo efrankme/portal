@@ -56,7 +56,7 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
               <input type="hidden" name="id" id="id">
               <div class="form-group">
                 <label for="usuario">Usuario</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" readonly>
+                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" value="<?php echo $_SESSION['usuario'] ?>">
               </div>
               <div class="form-group">
                 <label for="email">E-mail</label>
