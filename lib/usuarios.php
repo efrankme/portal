@@ -4,6 +4,7 @@ require "mysql.php";
 
 class Usuarios extends Mysql
 {
+	public $id;
 	public $usuario;
 	public $email;
 	public $nombre;
@@ -15,7 +16,7 @@ class Usuarios extends Mysql
 	public $ciudad;
 	public $estado;
 	public $codigopostal;
-	protected $id;
+	public $pic;
 	private $clave;
 
 	public function crear($data_usuario = [])
@@ -91,7 +92,8 @@ class Usuarios extends Mysql
 																				direccion = '$direccion',
 																				ciudad = '$ciudad',
 																				estado = '$estado',
-																				codigopostal = '$codigopostal'
+																				codigopostal = '$codigopostal',
+																				pic = '$pic'
 																				where id = $id ";
 		$this->ejecutar();
 	}

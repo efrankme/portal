@@ -16,7 +16,7 @@
 	<?php	if (isset($_SESSION['usuario'])) { ?>
 
 		<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-			<a class="navbar-brand" href="index.html">Portal Usuarios</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="menu" href="#">
+			<a class="navbar-brand" href="admin.php">Portal Usuarios</a><button class="btn btn-link btn-sm order-1 order-lg-0" id="menu" href="#">
 				<i class="fas fa-bars"></i>
 			</button>
 			<ul class="navbar-nav ml-auto ml-md-0">

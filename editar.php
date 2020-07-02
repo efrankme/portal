@@ -1,6 +1,6 @@
 <?php
 
-if (isset($_POST)) {
+if ($_POST) {
 	require 'lib/usuarios.php';
 	require 'lib/funciones.php';
 	$id = $_POST['id'];

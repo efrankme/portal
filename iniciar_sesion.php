@@ -9,6 +9,7 @@ if($_POST) {
   $user = new Usuarios();
 
   if($user->iniciarSesion($usuario,$clave)){
+    $_SESSION['id_usuario']=$user->id;
     $_SESSION['usuario']=$user->usuario;
     $_SESSION['nombre']=$user->nombre;
     $_SESSION['email']=$user->email;
