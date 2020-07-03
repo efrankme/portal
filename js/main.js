@@ -1,4 +1,39 @@
 $(function () {
+	//// Eventos template ////
+	// Toggle sidebar
+	$("#menu").on("click", function (e) {
+		e.preventDefault();
+		$("body").toggleClass("sb-sidenav-toggled");
+	});
+
+	// Agregar class active links
+	var ruta = window.location.href;
+	$("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
+		if (this.href === ruta) {
+			$(this).addClass("active");
+		}
+	});
+
+	// Mostrar mensajes
+	function popup(msj, tipo) {
+		$("#msg")
+			.addClass("alert alert-" + tipo)
+			.text(msj)
+			.fadeIn("slow")
+			.delay(2500)
+			.fadeOut("normal");
+	}
+
+	// Agrega fondo al login y registro
+	var url = location.pathname;
+	if (
+		url == "/portal/" ||
+		url == "/portal/index.php" ||
+		url == "/portal/registro.php"
+	) {
+		$("body").addClass("fondo");
+	}
+
 	// Eventos del index y registro
 	$("#login").submit(function (e) {
 		e.preventDefault();
@@ -95,37 +130,7 @@ $(function () {
 		}
 	});
 
-	//// Eventos template ////
-	// Toggle sidebar
-	$("#menu").on("click", function (e) {
-		e.preventDefault();
-		$("body").toggleClass("sb-sidenav-toggled");
-	});
-
-	// Agregar class active links
-	var ruta = window.location.href;
-	$("#layoutSidenav_nav .sb-sidenav a.nav-link").each(function () {
-		if (this.href === ruta) {
-			$(this).addClass("active");
-		}
-	});
-
-	// Mostrar mensajes
-	function popup(msj, tipo) {
-		$("#msg")
-			.addClass("alert alert-" + tipo)
-			.text(msj)
-			.fadeIn("slow")
-			.delay(2500)
-			.fadeOut("normal");
-	}
-
-	// Agrega fondo al login y registro
-	var url = location.pathname;
-	if (url == "/portal/index.php" || url == "/portal/registro.php") {
-		$("body").addClass("fondo");
-	}
-
+	///////////////////////////
 	//// Eventos admin.php ////
 
 	function cargaUsuarios() {
@@ -261,6 +266,96 @@ $(function () {
 		});
 	});
 
+	///////////////////
+	// Eventos perfil//
+
+	if (url == "/portal/perfil.php") {
+		let id = $("#id").val();
+		$.get("perfil_datos.php", { id: id }, function (user) {
+			if (user) {
+				user = $.parseJSON(user);
+				// llenamos form con datos
+				$("#id").val(user.id);
+				$("#nombre").val(user.nombre);
+				$("#apellido").val(user.apellido);
+				$("#email").val(user.email);
+				$("#cedula").val(user.cedula);
+				$("#fechanac").val(user.fechanac);
+				$("#telefono").val(user.telefono);
+				$("#direccion").val(user.direccion);
+				$("#ciudad").val(user.ciudad);
+				$("#estado").val(user.estado);
+				$("#codigopostal").val(user.codigopostal);
+			}
+		});
+	}
+		
+		$("#actualizar").on("click", function (event) {
+			//Validación
+			var form = $("#form-perfil");
+			form.validate({
+				rules: {
+					email: {
+						required: true,
+						email: true,
+					},
+					nombre: {
+						required: true,
+						minlength: 3,
+					},
+					apellido: {
+						required: true,
+						minlength: 3,
+					},
+					cedula: {
+						required: true,
+						minlength: 4,
+					},
+					fechanac: {
+						required: true,
+						max: "2005-01-01",
+					},
+					telefono: {
+						required: true,
+						minlength: 7,
+					},
+					direccion: {
+						required: true,
+						minlength: 5,
+					},
+					ciudad: {
+						required: true,
+						minlength: 3,
+					},
+					estado: {
+						required: true,
+						minlength: 4,
+					},
+					codigopostal: {
+						required: true,
+						minlength: 4,
+					},
+				},
+			});
+			if (form.valid()) {
+				var formData = new FormData(form[0]);
+				$.ajax({
+					url: "perfil_datos.php",
+					type: "post",
+					data: formData,
+					contentType: false,
+					processData: false,
+				}).done(function (resp) {
+					console.log(resp);
+					if (resp) {
+						popup("Usuario se actualizó correctamente", "success");
+						// actualizar src
+					}
+				});
+			}
+		});
+	
+
 	// Chequear inactividad
 
 	var idleTimer = null;
@@ -269,7 +364,7 @@ $(function () {
 		clearTimeout(idleTimer);
 
 		// Reactivar ult acceso
-		$.post("sesion.php");
+		// $.post("sesion.php");
 
 		idleTimer = setTimeout(function () {
 			// Inactividad detectada
@@ -282,5 +377,6 @@ $(function () {
 		}, 600000);
 	});
 
+	// Iniciar actividad
 	$("body").trigger("click");
 });

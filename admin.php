@@ -3,6 +3,7 @@ session_start();
 
 require 'inc/head.inc';
 require 'lib/funciones.php';
+require 'lib/usuarios.php';
 
 if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 	header('location: index.php');
@@ -15,29 +16,8 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 
 
 <div id="layoutSidenav">
-	<div id="layoutSidenav_nav">
-		<nav class="sb-sidenav sb-sidenav-dark">
-			<div class="sb-sidenav-menu">
-				<div class="nav">
-					<a class="nav-link" href="admin.php">
-						<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-						Administración
-					</a>
-					<a class="nav-link" href="charts.html">
-						<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-						Charts
-					</a><a class="nav-link" href="tables.html">
-						<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-						Tables
-					</a>
-				</div>
-			</div>
-			<div class="sb-sidenav-footer">
-				<div class="small">Conectado como:</div>
-				<?php echo $_SESSION['nombre']; ?>
-			</div>
-		</nav>
-	</div>
+	
+	<?php require 'inc/menu.inc' ?>
 
 	<div id="layoutSidenav_content">
 		<main>
