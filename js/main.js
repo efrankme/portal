@@ -289,72 +289,108 @@ $(function () {
 			}
 		});
 	}
-		
-		$("#actualizar").on("click", function (event) {
-			//Validación
-			var form = $("#form-perfil");
-			form.validate({
-				rules: {
-					email: {
-						required: true,
-						email: true,
-					},
-					nombre: {
-						required: true,
-						minlength: 3,
-					},
-					apellido: {
-						required: true,
-						minlength: 3,
-					},
-					cedula: {
-						required: true,
-						minlength: 4,
-					},
-					fechanac: {
-						required: true,
-						max: "2005-01-01",
-					},
-					telefono: {
-						required: true,
-						minlength: 7,
-					},
-					direccion: {
-						required: true,
-						minlength: 5,
-					},
-					ciudad: {
-						required: true,
-						minlength: 3,
-					},
-					estado: {
-						required: true,
-						minlength: 4,
-					},
-					codigopostal: {
-						required: true,
-						minlength: 4,
-					},
+
+	$("#actualizar").on("click", function (event) {
+		//Validación
+		var form = $("#form-perfil");
+		form.validate({
+			rules: {
+				email: {
+					required: true,
+					email: true,
 				},
-			});
-			if (form.valid()) {
-				var formData = new FormData(form[0]);
-				$.ajax({
-					url: "perfil_datos.php",
-					type: "post",
-					data: formData,
-					contentType: false,
-					processData: false,
-				}).done(function (resp) {
-					console.log(resp);
-					if (resp) {
-						popup("Usuario se actualizó correctamente", "success");
-						// actualizar src
-					}
-				});
-			}
+				nombre: {
+					required: true,
+					minlength: 3,
+				},
+				apellido: {
+					required: true,
+					minlength: 3,
+				},
+				cedula: {
+					required: true,
+					minlength: 4,
+				},
+				fechanac: {
+					required: true,
+					max: "2005-01-01",
+				},
+				telefono: {
+					required: true,
+					minlength: 7,
+				},
+				direccion: {
+					required: true,
+					minlength: 5,
+				},
+				ciudad: {
+					required: true,
+					minlength: 3,
+				},
+				estado: {
+					required: true,
+					minlength: 4,
+				},
+				codigopostal: {
+					required: true,
+					minlength: 4,
+				},
+			},
 		});
-	
+		if (form.valid()) {
+			var formData = new FormData(form[0]);
+			$.ajax({
+				url: "perfil_datos.php",
+				type: "post",
+				data: formData,
+				contentType: false,
+				processData: false,
+			}).done(function (resp) {
+				console.log(resp);
+				if (resp) {
+					popup("Usuario se actualizó correctamente", "success");
+					// actualizar src
+				} else {
+					popup("No se pudó cargar la imagen", "danger");
+				}
+			});
+		}
+	});
+
+	$("#actualizar-clave").click(function () {
+		// $(this).attr("disabled", "disabled");
+
+		//Validación
+		var form = $("#clave-editar");
+		form.validate({
+			rules: {
+				clave: {
+					required: true,
+					minlength: 4,
+				},
+				clave2: {
+					required: true,
+					equalTo: "#clave",
+				}
+			},
+		});
+
+		if (form.valid()) {
+			var clave = $("#clave").val();
+
+			$.post("perfil_datos.php", { clave: clave})
+				.done(function (resp) {
+				if (resp) {
+					popup("Clave actualizada con éxito", "success");
+					// setTimeout(function () {
+					// 	location = "index.php";
+					// }, 30000);
+				} else {
+					popup("Algo pasó, intente más tarde", "danger");
+				}
+			});
+		}
+	});
 
 	// Chequear inactividad
 

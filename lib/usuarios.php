@@ -52,7 +52,7 @@ class Usuarios extends Mysql
 	public function consultarTodos()
 	{
 		$this->query =
-			"select id, usuario,email,nombre,apellido,fechanac,telefono,ciudad from usuarios";
+			"select id, usuario,email,nombre,apellido,fechanac,telefono,ciudad from usuarios where erased = 0";
 		$this->ejecutarResultados();
 		return $this->rows;
 	}
@@ -95,6 +95,13 @@ class Usuarios extends Mysql
 																				codigopostal = '$codigopostal',
 																				pic = '$pic'
 																				where id = $id ";
+		$this->ejecutar();
+	}
+
+	public function cambiarClave($id,$clave) {
+		$clave = password_hash($clave,PASSWORD_DEFAULT);
+
+		$this->query = "update usuarios set clave = '$clave' where id = $id";
 		$this->ejecutar();
 	}
 

@@ -11,7 +11,7 @@ if ($_GET) {
   echo json_encode($usuario);
 }
 
-if($_POST){
+if($_POST && $_FILES){
   if (($_FILES["imagen"]["type"] == "image/jpeg")
   || ($_FILES["imagen"]["type"] == "image/png")
   || ($_FILES["imagen"]["type"] == "image/gif")) {
@@ -43,5 +43,14 @@ if($_POST){
     }
   }
   echo false;
+}
+
+
+if($_POST) {
+  $clave = $_POST['clave'];
+  $usuario = new Usuarios();
+  $id = $_SESSION['id_usuario'];
+  $usuario->cambiarClave($id,$clave);
+  echo true;
 }
 ?>
