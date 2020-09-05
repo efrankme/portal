@@ -39,9 +39,9 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
                 <label for="email">E-mail</label>
                 <input type="email" class="form-control" id="email" name="email" placeholder="Email">
               </div>
-              <div class="form-group">
-                <label for="imagen">Imagen de perfil</label>
-                <input type="file" class="form-control" id="imagen" name="imagen">
+              <div class="custom-file">
+                <label class="custom-file-label" for="imagen">Imagen de perfil</label>
+                <input type="file" class="custom-file-input" id="imagen" name="imagen">
               </div>
               <div class="form-group">
                 <label for="nombre">Nombre</label>

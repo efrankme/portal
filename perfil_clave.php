@@ -3,6 +3,7 @@ session_start();
 
 require 'inc/head.inc';
 require 'lib/funciones.php';
+require 'lib/usuarios.php';
 
 if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
   header('location: index.php');
@@ -15,29 +16,7 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
 
 
 <div id="layoutSidenav">
-  <div id="layoutSidenav_nav">
-    <nav class="sb-sidenav sb-sidenav-dark">
-      <div class="sb-sidenav-menu">
-        <div class="nav">
-          <a class="nav-link" href="admin.php">
-            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-            Administración
-          </a>
-          <a class="nav-link" href="charts.html">
-            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-            Charts
-          </a><a class="nav-link" href="tables.html">
-            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-            Tables
-          </a>
-        </div>
-      </div>
-      <div class="sb-sidenav-footer">
-        <div class="small">Conectado como:</div>
-        <?php echo $_SESSION['nombre']; ?>
-      </div>
-    </nav>
-  </div>
+  <?php require 'inc/menu.inc' ?>
 
   <div id="layoutSidenav_content">
     <main>
@@ -52,11 +31,11 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
             <i class="fas fa-table mr-1"></i>Usuarios
           </div>
           <div class="card-body">
-            <form id="form-editar" method="post">
+            <form id="clave-editar" method="post">
               <input type="hidden" name="id" id="id">
               <div class="form-group">
                 <label for="usuario">Usuario</label>
-                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" readonly>
+                <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario" readonly value="<?php echo $_SESSION['usuario'] ?>">
               </div>
               <div class="form-group">
                 <label for="clave">Contraseña</label>
@@ -66,7 +45,7 @@ if (!$_SESSION['fingerprint'] == md5($_SERVER['HTTP_USER_AGENT'])) {
                 <label for="clave2">Confirmar contraseña</label>
                 <input type="password" class="form-control" id="clave2" name="clave2" placeholder="Confirmar Contraseña">
               </div>
-              <button type="button" class="btn btn-primary" id="editar">Guardar</button>
+              <button type="button" class="btn btn-primary" id="actualizar-clave">Guardar</button>
             </form>
           </div>
         </div>

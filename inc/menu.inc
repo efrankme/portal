@@ -14,12 +14,12 @@ $src = $usuario->pic;
 					<div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
 					Administración
 				</a>
-				<a class="nav-link" href="charts.html">
+				<a class="nav-link" href="#">
 					<div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-					Charts
-				</a><a class="nav-link" href="tables.html">
+					Gráficas
+				</a><a class="nav-link" href="#">
 					<div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-					Tables
+					Reportes
 				</a>
 			</div>
 		</div>
